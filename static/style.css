@@ -1,0 +1,248 @@
+/* General Body Styles */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('../static/images/backgroundimg4.jpg') no-repeat center center fixed; /* Add background image */
+    background-size: cover; /* Ensure the image covers the viewport */
+    box-sizing: border-box; 
+} 
+
+/* Container Styles */
+.container {
+    text-align: center;
+    backdrop-filter: blur(15px); /* Apply blur effect */
+    background: rgba(0, 0, 0, 0.5); /* Darker semi-transparent background for contrast */
+    border: 1px solid rgba(248, 233, 233, 0.3); /* Subtle border matching the background */
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px; /* Increase max-width */
+    width: 90%;
+    margin: 20px auto;
+}
+
+.box {
+    display: inline-block; /* Ensures the box size adapts to the content */
+    background: rgba(255, 255, 255, 0.1); /* Light semi-transparent background */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border matching the background */
+    padding: 15px; /* Reduce padding for a tighter fit */
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word; /* Ensures text doesn't overflow */
+    max-width: 100%; /* Prevents box from exceeding container width */
+}
+.box1 {
+    
+    display: inline-block; /* Ensures the box size adapts to the content */
+    background: rgba(255, 255, 255, 0.1); /* Light semi-transparent background */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border matching the background */
+    padding: 10px; /* Reduce padding for a tighter fit */
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word; /* Ensures text doesn't overflow */
+    max-width: 100%; /* Prevents box from exceeding container width */
+}
+
+
+/* Checkout Box Styles */
+.checkout-box {
+    backdrop-filter: blur(5px); /* Reduced blur effect for the "To Checkout" box */
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Success Page Styles */
+.success-page {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0 20px; /* Ensure some margin on small screens */
+}
+h1{
+    color: white;
+}
+.success-message {
+    color: white; /* Green color for success message */
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.success-text {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.details {
+    margin-bottom: 20px;
+    text-align: left;
+    font-size: 16px;
+}
+
+.details p {
+    margin: 5px 0;
+}
+
+/* Button Styles */
+.btn {
+    background-color: rgba(14, 92, 14, 0.8); /* Semi-transparent green button */
+    color: white;
+    padding: 12px 25px; /* Adjusted padding */
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: rgb(56, 201, 56); /* Fully opaque on hover */
+}
+
+/* Form Group Styles */
+.form-group {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+label {
+    color: white;
+    font-weight: bold;
+    margin-right: 10px;
+    white-space: nowrap;
+}
+p{
+    color: white;
+}
+select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: auto; /* Make the dropdown fit the label size */
+}
+
+button {
+    background-color: rgba(0, 128, 0, 0.8); /* Semi-transparent green */
+    color: white;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: rgb(46, 216, 46); /* Fully opaque on hover */
+}
+
+/* Alert Styles */
+.alert {
+    backdrop-filter: blur(10px); /* Blur effect for alert */
+    background-color: rgba(255, 239, 196, 0.8); /* Semi-transparent yellow */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 224, 138, 0.8); /* Subtle border */
+    border-radius: 5px;
+}
+
+/* Heading Styles for Checkout Box and Box */
+.checkout-box h2, .box h2 {
+    margin: 0;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Checkout Box Button */
+.checkout-box button {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        max-width: 90%; /* Allow container to take more width on smaller screens */
+        padding: 25px; /* Adjust padding */
+    }
+
+    .box {
+        padding: 20px; /* Adjust box padding */
+    }
+
+    .btn {
+        padding: 10px 20px; /* Adjust button padding */
+        font-size: 14px; /* Adjust font size */
+    }
+
+    .form-group {
+        flex-direction: column; /* Stack form items vertically */
+        align-items: flex-start;
+    }
+
+    label {
+        margin-bottom: 10px;
+    }
+
+    select {
+        width: 100%; /* Make select take full width on smaller screens */
+    }
+
+    .details {
+        font-size: 14px; /* Smaller font size for details */
+    }
+
+    .success-message {
+        font-size: 20px; /* Adjust success message font size */
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        max-width: 100%; /* Allow the container to take full width */
+        padding: 20px;
+    }
+
+    .box {
+        padding: 15px; /* Adjust box padding */
+    }
+
+    .btn {
+        padding: 8px 18px; /* Adjust button padding */
+        font-size: 14px;
+    }
+
+    .success-message {
+        font-size: 18px; /* Further adjust success message font size */
+    }
+
+    .form-group {
+        flex-direction: column;
+    }
+
+    label {
+        margin-bottom: 8px; /* Adjust label margin */
+    }
+
+    select {
+        width: 100%; /* Ensure dropdown fits full width */
+    }
+
+    .details {
+        font-size: 13px; /* Smaller font size for smaller screens */
+    }
+}

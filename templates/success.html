@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Successful</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 style="color: white;">Booking Successful!</h1>
+        <p style="color: white;">Your parking slot has been successfully booked.</p>
+        <div class="details">
+            <p><strong>Slot Number:</strong> {{ slot_number }}</p>
+            <p><strong>Total Amount Paid:</strong> Rs. {{ amount_paid }}</p>
+        </div>
+        <a href="{{ url_for('index') }}" class="btn" href="javascript:history.back()" class="site-back-button">Back to Home</a>
+    </div>
+    <script>
+        // Prevent navigating back to this page
+        window.history.pushState(null, "", window.location.href);
+        window.onpopstate = function () {
+            window.history.go(1); // Prevent back navigation
+        };
+
+        // Disable specific back buttons
+        document.addEventListener("DOMContentLoaded", function () {
+            const backButton = document.querySelector(".site-back-button"); // Add class to your site's back button
+            if (backButton) {
+                backButton.addEventListener("click", function (e) {
+                    e.preventDefault(); // Prevent the button click from working
+                    alert("Navigation to the previous page is disabled.");
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Penalty</title>
+</head>
+<body>
+    <div class="container">
+        
+    <h1>Pay Penalty</h1>
+    <p>You have a penalty of ₹{{ penalty_amount }} for {{ penalty_time|round(2) }} hours over time.</p>
+    
+    <form action="/pay_penalty" method="POST">
+        <input type="hidden" name="vehicle_number" value="{{ vehicle_number }}">
+        <input type="hidden" name="penalty_amount" value="{{ penalty_amount }}">
+        <button type="submit">Pay Penalty</button>
+    </form>
+
+</div>
+
+</body>
+</html>

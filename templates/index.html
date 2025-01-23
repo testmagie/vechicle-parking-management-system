@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<div class="container">
+    <h1 style="color: rgb(243, 236, 236);">Welcome to Vehicle Parking System</h1>
+
+    {% if message %}
+        <div class="alert alert-warning">
+            <strong>{{ message }}</strong>
+        </div>
+    {% endif %}
+
+    <!-- Box for selecting vehicle type -->
+    <div class="box">
+        <h2 style="color: rgb(243, 233, 233);">Select Vehicle Type</h2>
+        <form method="POST" action="{{ url_for('show_slots') }}">
+            <div class="form-group">
+                
+                <div>
+                    <!-- Button for Car -->
+                    <button type="submit" name="vehicle_type" value="Car">Car</button>
+        
+                    <!-- Button for Bike -->
+                    <button type="submit" name="vehicle_type" value="Bike">Bike</button>
+                </div> 
+            </div>
+            
+        </form>
+    </div>
+
+    <!-- Separate box for checkout -->
+    <div class="box1">
+        <h2 style="color: rgb(240, 228, 228);">Select to Checkout</h2>
+        <form action="{{ url_for('checkout') }}" method="get">
+            <button type="submit">Checkout Details</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

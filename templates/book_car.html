@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 style="color: white;">Book a Parking Slot for Car</h2>
+    {% if message %}
+    <div style="color: red; margin-bottom: 10px;">
+        {{ message }}
+    </div>
+    {% endif %}
+    <div class="box">
+        <form id="bookingForm" method="POST" action="{{ url_for('car_book_slot') }}">
+            <input type="hidden" name="rate_per_hour" value="{{ rate_per_hour }}">
+
+            <div class="form-group">
+                <label for="vehicle_number">Vehicle Number:</label>
+                <input type="text" id="vehicle_number" name="vehicle_number" required placeholder="Enter vehicle number"
+                    value="{{ vehicle_number or '' }}"> <!-- Preserve the value -->
+                <div id="vehicle-error-message" style="color: red; display: none; margin-top: 10px;">
+                    This vehicle number invalid vehicle number.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="vehicle_owner">Owner Name:</label>
+                <input type="text" id="vehicle_owner" name="vehicle_owner" required placeholder="Enter vehicle owner"
+                    value="{{ vehicle_owner or '' }}"> <!-- Preserve the value -->
+                <div id="owner-error-message" style="color: red; display: none; margin-top: 10px;">
+                    Please enter a valid owner name (alphabets only).
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="slot_number">Select Slot:</label>
+                <select id="slot_number" name="slot_number" required>
+                    {% for slot in slots %}
+                    <option value="{{ slot[0] }}">Slot {{ slot[0] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="in_time">In Time:</label>
+                <input type="datetime-local" id="in_time" name="in_time" required value="{{ in_time or '' }}">
+                <!-- Preserve the value -->
+            </div>
+
+            <div class="form-group">
+                <label for="out_time">Out Time:</label>
+                <input type="datetime-local" id="out_time" name="out_time" required value="{{ out_time or '' }}">
+                <!-- Preserve the value -->
+                <div id="time-error-message" style="color: red; display: none; margin-top: 10px;">
+                    Minimum booking time is 1 hour.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="payment_method">Payment Method:</label>
+                <select id="payment_method" name="payment_method" required>
+                    <option value="PhonePe" {% if payment_method=='PhonePe' %}selected{% endif %}>PhonePe</option>
+                    <option value="GPay" {% if payment_method=='GPay' %}selected{% endif %}>GPay</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Book Slot</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById("bookingForm").addEventListener("submit", function (event) {
+        const ownerInput = document.getElementById("vehicle_owner");
+        const numberInput = document.getElementById("vehicle_number");
+        const inTimeInput = document.getElementById("in_time");
+        const outTimeInput = document.getElementById("out_time");
+        const ownerErrorMessage = document.getElementById("owner-error-message");
+        const timeErrorMessage = document.getElementById("time-error-message");
+        const vehicleErrorMessage = document.getElementById("vehicle-error-message");
+
+        let isValid = true;
+
+        // Clear all previous error messages and highlight styles
+        ownerErrorMessage.style.display = "none";
+        timeErrorMessage.style.display = "none";
+        vehicleErrorMessage.style.display = "none";
+        ownerInput.style.borderColor = ""; // Remove error highlight
+        numberInput.style.borderColor = ""; // Remove error highlight
+
+        // Validate Vehicle Owner (alphabets only)
+        if (!/^[A-Za-z\s]+$/.test(ownerInput.value)) {
+            ownerErrorMessage.style.display = "block";
+            ownerInput.style.borderColor = "red"; // Highlight error
+            isValid = false;
+        }
+
+        // Validate Vehicle Number (Format: 2 alphabets, 2 digits, 2 alphabets, 4 digits)
+        if (!/^[A-Z]{2}\d{2}[A-Z]{2}\d{4}$/.test(numberInput.value)) {
+            vehicleErrorMessage.style.display = "block"; // Show error message for invalid vehicle number
+            numberInput.style.borderColor = "red"; // Highlight error
+            isValid = false;
+        } else {
+            vehicleErrorMessage.style.display = "none"; // Hide error message
+            numberInput.style.borderColor = ""; // Reset border color
+        }
+
+        // Validate Booking Time
+        const inTime = new Date(inTimeInput.value);
+        const outTime = new Date(outTimeInput.value);
+        const minimumBookingTime = 60 * 60 * 1000; // 1 hour in milliseconds
+
+        // Check if In Time and Out Time are valid dates
+        if (isNaN(inTime.getTime()) || isNaN(outTime.getTime())) {
+            timeErrorMessage.textContent = "Please enter valid in and out times."; // Custom message
+            timeErrorMessage.style.display = "block"; // Show error message
+            isValid = false;
+        } else {
+            // Check if Out Time is greater than In Time
+            if (outTime <= inTime) {
+                timeErrorMessage.textContent = "Out time must be greater than In time."; // Custom message
+                timeErrorMessage.style.display = "block"; // Show error message
+                isValid = false;
+            } else if (outTime - inTime < minimumBookingTime) {
+                // Check if the difference between In Time and Out Time is less than 1 hour
+                timeErrorMessage.textContent = "Out time should be at least 1 hour after In time."; // Custom message
+                timeErrorMessage.style.display = "block"; // Show error message
+                isValid = false;
+            } else {
+                timeErrorMessage.style.display = "none"; // Hide error message if valid
+            }
+        }
+
+        // If there are any validation issues, prevent form submission
+        if (!isValid) {
+            event.preventDefault(); // Prevent form submission
+        }
+    });
+</script>
+
+{% block extra_css %}
+<style>
+    .form-group {
+        margin-bottom: 10px;
+        /* Reduced gap between form fields */
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        /* Reduced space between label and input */
+        font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 8px;
+        margin: 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        background-color: green;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: darkgreen;
+    }
+</style>
+{% endblock %}
+{% endblock %}

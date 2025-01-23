@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Checkout Vehicle</h1>
+        <div class="box">
+        <form action="/checkout" method="POST">
+            <div class="form-group">
+                <label for="vehicle_number">Vehicle Number:</label>
+                <input type="text" id="vehicle_number" name="vehicle_number" required class="input-field"><br>
+            </div>
+
+            <div class="form-group">
+                <label for="vehicle_owner">Owner Name:</label>
+                <input type="text" id="vehicle_owner" name="vehicle_owner" required class="input-field"><br>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" >Check Out</button>
+            </div>
+        </form>
+    </div>
+    </div>
+</body>
+</html>
